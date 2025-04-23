@@ -15,7 +15,6 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
 
   Future<List<StationData>> getStations(String language) async {
     var result = await _repo.getStations(language);
-    result.forEach((element) => print("${element.name}: ${element.connectedStations}"),);
     result.sort((a, b) => a.name.compareTo(b.name));
     stations ??= result.toList();
     return result;
@@ -40,7 +39,7 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
       currentNode.isVisited = true;
       if (currentNode.station.name == destinationStation.name) {
         List<StationData> stationsPath = path.map((e) => e.station).toList();
-        int stationsCount = stationsPath.length - 1;
+        int stationsCount = stationsPath.length;
         int estimatesTime = ((stationsCount / 80 * 60) + (stationsCount)).ceil();
         int ticketPrice;
         switch (stationsCount) {
@@ -57,7 +56,6 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
         return;
       }
       for (String station in currentNode.station.connectedStations.split(',')) {
-        print(station);
         StationNode stationNode = stationNodes.firstWhere(
           (element) => element.station.name == station,
         );

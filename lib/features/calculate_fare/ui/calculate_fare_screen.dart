@@ -179,7 +179,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                       S
                                                           .of(context)
                                                           .totalStations,
-                                                      "${state.stations.length - 1} ${S.of(context).stations}",
+                                                      "${state.stations.length} ${S.of(context).stations}",
                                                     ],
                                                     [
                                                       Icons.access_time_rounded,
