@@ -2,29 +2,31 @@ import 'dart:collection';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metro_scout/core/database/my_database.dart';
+import 'package:metro_scout/core/models/station_data.dart';
 import 'package:metro_scout/features/calculate_fare/data/models/station_node.dart';
 import 'package:metro_scout/features/calculate_fare/data/repos/calculate_fare_repo.dart';
 import 'package:metro_scout/features/calculate_fare/logic/calculate_fare_state.dart';
 
 class CalculateFareCubit extends Cubit<CalculateFareState> {
   final CalculateFareRepo _repo;
-  List<Station>? stations;
+  List<StationData>? stations;
 
   CalculateFareCubit(this._repo) : super(InitialState());
 
-  Future<List<Station>> getStations() async {
-    var result = await _repo.getStations();
-    result.sort((a, b) => a.stationName.compareTo(b.stationName));
+  Future<List<StationData>> getStations(String language) async {
+    var result = await _repo.getStations(language);
+    result.forEach((element) => print("${element.name}: ${element.connectedStations}"),);
+    result.sort((a, b) => a.name.compareTo(b.name));
     stations ??= result.toList();
     return result;
   }
 
-  calculateFare(Station startingStation, Station destinationStation) {
+  calculateFare(StationData startingStation, StationData destinationStation) {
     emit(LoadingState());
     List<StationNode> stationNodes =
         stations!.map((e) => StationNode(e)).toList();
     StationNode start = stationNodes.firstWhere(
-      (element) => element.station.stationName == startingStation.stationName,
+      (element) => element.station.name == startingStation.name,
     );
     Queue<List<StationNode>> paths = Queue.of([
       [start],
@@ -36,8 +38,8 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
         continue;
       }
       currentNode.isVisited = true;
-      if (currentNode.station.stationName == destinationStation.stationName) {
-        List<Station> stationsPath = path.map((e) => e.station).toList();
+      if (currentNode.station.name == destinationStation.name) {
+        List<StationData> stationsPath = path.map((e) => e.station).toList();
         int stationsCount = stationsPath.length - 1;
         int estimatesTime = ((stationsCount / 80 * 60) + (stationsCount)).ceil();
         int ticketPrice;
@@ -54,9 +56,10 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
         emit(LoadedState(stationsPath, estimatesTime,ticketPrice));
         return;
       }
-      for (String station in currentNode.station.connectedStations.split('-')) {
+      for (String station in currentNode.station.connectedStations.split(',')) {
+        print(station);
         StationNode stationNode = stationNodes.firstWhere(
-          (element) => element.station.stationName == station,
+          (element) => element.station.name == station,
         );
         var newPath = path.toList();
         newPath.add(stationNode);

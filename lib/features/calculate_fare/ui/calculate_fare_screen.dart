@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metro_scout/core/database/my_database.dart';
+import 'package:metro_scout/core/models/station_data.dart';
 import 'package:metro_scout/core/theming/my_colors.dart';
 import 'package:metro_scout/core/theming/my_text_styles.dart';
 import 'package:metro_scout/features/calculate_fare/ui/widgets/stations_autocomplete.dart';
@@ -12,8 +13,8 @@ import 'package:metro_scout/features/calculate_fare/logic/calculate_fare_state.d
 import 'package:metro_scout/generated/l10n.dart';
 
 class CalculateFareScreen extends StatelessWidget {
-  Station? startingStation;
-  Station? destinationStation;
+  StationData? startingStation;
+  StationData? destinationStation;
   final GlobalKey<FormState> formKey = GlobalKey();
 
   CalculateFareScreen({super.key});
@@ -28,11 +29,13 @@ class CalculateFareScreen extends StatelessWidget {
             width: double.infinity,
             margin: EdgeInsets.fromLTRB(10.dg, 10.dg, 10.dg, 20.dg),
             child: FutureBuilder(
-              future: context.read<CalculateFareCubit>().getStations(),
+              future: context.read<CalculateFareCubit>().getStations(
+                Localizations.localeOf(context).languageCode,
+              ),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
-                  var stations = snapshot.data as List<Station>;
+                  var stations = snapshot.data as List<StationData>;
                   return Form(
                     key: formKey,
                     child: Column(
@@ -344,7 +347,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                           ),
                                                           SizedBox(width: 5.w),
                                                           Text(
-                                                            station.stationName,
+                                                            station.name,
                                                             style:
                                                                 MyTextStyles
                                                                     .font11greyRegular,

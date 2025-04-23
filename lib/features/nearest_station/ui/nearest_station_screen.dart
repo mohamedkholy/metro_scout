@@ -8,7 +8,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:metro_scout/core/theming/my_colors.dart';
 import 'package:metro_scout/core/theming/my_text_styles.dart';
@@ -42,11 +41,16 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
 
   void _initAsync() async {
     cubit = context.read<NearestStationCubit>();
-    cubit.getStations();
     metroIcon = await BitmapDescriptor.asset(
       ImageConfiguration(size: Size(25.dg, 25.dg)),
       Assets.pngMetro,
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    cubit.getStations(Localizations.localeOf(context).languageCode);
+    super.didChangeDependencies();
   }
 
   @override
@@ -246,7 +250,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${S.of(context).stationName}: ${state.nearestStation.stationName}",
+                                      "${S.of(context).stationName}: ${state.nearestStation.name}",
                                       style: MyTextStyles.font12PrimarySemiBold,
                                     ),
                                     SizedBox(height: 2.h),
@@ -367,6 +371,9 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                             },
                             onMapCreated: (controller) {
                               mapController = controller;
+                              controller.animateCamera(
+                                CameraUpdate.newLatLngBounds(bounds, 50.dg),
+                              );
                             },
                             onTap: (latLng) {
                               cubit.getNearestStation(latLng);
@@ -384,7 +391,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                   state.nearestStation.lng,
                                 ),
                                 infoWindow: InfoWindow(
-                                  title: state.nearestStation.stationName,
+                                  title: state.nearestStation.name,
                                 ),
                               ),
                               Marker(

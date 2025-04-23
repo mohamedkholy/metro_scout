@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:metro_scout/core/database/my_database.dart';
+import 'package:metro_scout/core/models/station_data.dart';
 import 'package:metro_scout/core/theming/my_colors.dart';
 import 'package:metro_scout/core/theming/my_text_styles.dart';
 import 'package:metro_scout/features/nearest_station/data/repos/nearest_station_repo.dart';
@@ -16,15 +17,15 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class NearestStationCubit extends Cubit<NearestStationState> {
   final NearestStationRepo _repo;
-  late final List<Station> stations;
+  late final List<StationData> stations;
   LatLng? currentLocation;
-  Station? nearestStation;
+  StationData? nearestStation;
   double? distance;
 
   NearestStationCubit(this._repo) : super(UseCurrentLocationState());
 
-  getStations() async {
-    stations = await _repo.getStations();
+   getStations(String language) async {
+    stations = await _repo.getStations(language);
   }
 
   toggleLocationOptionsButtons(int index) {
@@ -137,7 +138,7 @@ class NearestStationCubit extends Cubit<NearestStationState> {
   }
 
   getNearestStation(LatLng currentLocation) {
-    Station nearestStation = stations.first;
+    StationData nearestStation = stations.first;
     for (var station in stations) {
       var lngDiff = (currentLocation.longitude - nearestStation.lng).abs();
       var latDiff = (currentLocation.latitude - nearestStation.lat).abs();
@@ -159,7 +160,7 @@ class NearestStationCubit extends Cubit<NearestStationState> {
     emit(NearMetroState(currentLocation, nearestStation,distance));
   }
 
-  double distanceToMetro(LatLng currentLocation, Station nearestStation) {
+  double distanceToMetro(LatLng currentLocation, StationData nearestStation) {
     double distance =
         Geolocator.distanceBetween(
           currentLocation.latitude,

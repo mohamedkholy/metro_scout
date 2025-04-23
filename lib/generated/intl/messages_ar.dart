@@ -74,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "اختر محطة البداية",
     ),
     "stationName": MessageLookupByLibrary.simpleMessage("اسم المحطة"),
-    "stations": MessageLookupByLibrary.simpleMessage("محطات"),
+    "stations": MessageLookupByLibrary.simpleMessage("محطة"),
     "tagline": MessageLookupByLibrary.simpleMessage(
       "رفيقك الذكي في التنقل عبر المترو في القاهرة",
     ),

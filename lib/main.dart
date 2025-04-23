@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metro_scout/core/database/my_database.dart';
 import 'package:metro_scout/core/di/dependency_injection.dart';
 import 'package:metro_scout/core/routing/app_router.dart';
 import 'package:metro_scout/core/routing/my_routes.dart';

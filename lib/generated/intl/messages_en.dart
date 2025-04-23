@@ -74,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Select starting station",
     ),
     "stationName": MessageLookupByLibrary.simpleMessage("Station Name"),
-    "stations": MessageLookupByLibrary.simpleMessage("stations"),
+    "stations": MessageLookupByLibrary.simpleMessage("Stations"),
     "tagline": MessageLookupByLibrary.simpleMessage(
       "Your smart companion of metro navigation in cairo",
     ),

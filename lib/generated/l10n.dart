@@ -140,9 +140,9 @@ class S {
     );
   }
 
-  /// `stations`
+  /// `Stations`
   String get stations {
-    return Intl.message('stations', name: 'stations', desc: '', args: []);
+    return Intl.message('Stations', name: 'stations', desc: '', args: []);
   }
 
   /// `Estimated Time`
