@@ -100,6 +100,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                               ),
                               SizedBox(height: 15.h),
                               MaterialButton(
+                                padding: EdgeInsets.symmetric(vertical: 5.h),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -186,6 +187,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                               ),
                               SizedBox(height: 10.h),
                               MaterialButton(
+                                padding: EdgeInsets.symmetric(vertical: 5.h),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),

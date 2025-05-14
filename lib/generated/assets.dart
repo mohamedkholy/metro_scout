@@ -9,6 +9,8 @@ class Assets {
   static const String pngCairoMetroMap = 'assets/images/png/CairoMetroMap.png';
   static const String pngMetro = 'assets/images/png/metro.png';
   static const String pngMetroMap1 = 'assets/images/png/metroMap1.jpg';
+  static const String pngMetroScoutIcon = 'assets/images/png/metro_scout_icon.png';
+  static const String pngSplash = 'assets/images/png/splash.png';
   static const String pngTransport = 'assets/images/png/transport.png';
   static const String svgMap = 'assets/images/svg/map.svg';
   static const String svgMetro = 'assets/images/svg/metro.svg';

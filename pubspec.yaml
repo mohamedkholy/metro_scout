@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.7.2
@@ -42,7 +42,7 @@ dependencies:
   intl: ^0.19.0
   flutter_svg: ^2.0.17
   flutter_screenutil: ^5.9.3
-  flutter_native_splash: ^2.4.5
+  flutter_native_splash: ^2.4.6
   firebase_core: ^3.12.1
   firebase_crashlytics: ^4.3.4
   firebase_messaging: ^15.2.4
@@ -75,14 +75,14 @@ dev_dependencies:
   flutter_launcher_icons: "^0.14.3"
 flutter_launcher_icons:
   android: "launcher_icon"
+  adaptive_icon_background: "#131414"
+  adaptive_icon_foreground: assets/images/png/metro_scout_icon.png
+  adaptive_icon_foreground_inset: 25
   ios: true
-  image_path: assets/images/launcher_icon.png
+  image_path: assets/images/png/metro_scout_icon.png
   min_sdk_android: 21
-  flutter_launcher_name: "^0.0.1"
 
 
-flutter_launcher_name:
-  name: "Metro Scout"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
