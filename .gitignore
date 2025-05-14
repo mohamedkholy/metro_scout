@@ -29,6 +29,10 @@
 .pub/
 /build/
 
+#firebase related
+/lib/firebase_options.dart
+firebase.json
+
 # Android related
 *.jks
 **/android/app/google-services.json
