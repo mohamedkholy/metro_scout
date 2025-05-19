@@ -43,3 +43,6 @@ Metro Scout is a Flutter app designed to help users navigate the metro system in
   - `flutter_localizations`
   - `smooth_page_indicator`
   - `flutter_animate`
+
+## 📥 APK
+📥 Download Demo APK: [Google Drive Link](https://drive.google.com/drive/folders/1VY8vFmdAzZCx4xbgHBOU5KKOaUpSBqhH?usp=drive_link)
