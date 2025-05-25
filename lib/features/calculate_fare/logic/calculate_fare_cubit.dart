@@ -20,8 +20,9 @@ class CalculateFareCubit extends Cubit<CalculateFareState> {
     return result;
   }
 
-  calculateFare(StationData startingStation, StationData destinationStation) {
+  void calculateFare(StationData startingStation, StationData destinationStation) async{
     emit(LoadingState());
+    await Future.delayed(Duration(milliseconds: 50));
     List<StationNode> stationNodes =
         stations!.map((e) => StationNode(e)).toList();
     StationNode start = stationNodes.firstWhere(
