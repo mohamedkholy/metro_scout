@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metro_scout/core/database/my_database.dart';
 import 'package:metro_scout/core/models/station_data.dart';
 import 'package:metro_scout/core/theming/my_text_styles.dart';
 import 'package:metro_scout/core/widgets/my_text_form.dart';
 import 'package:metro_scout/generated/l10n.dart';
 
-class StationsAutocomplete extends StatelessWidget {
+class StationsAutocomplete extends StatefulWidget {
   final String title;
   final String hint;
   final List<StationData> stations;
@@ -23,6 +22,11 @@ class StationsAutocomplete extends StatelessWidget {
   });
 
   @override
+  State<StationsAutocomplete> createState() => _StationsAutocompleteState();
+}
+
+class _StationsAutocompleteState extends State<StationsAutocomplete> {
+  @override
   Widget build(BuildContext context) {
     return Autocomplete(
       fieldViewBuilder: (
@@ -34,21 +38,21 @@ class StationsAutocomplete extends StatelessWidget {
         return MyTextForm(
           validator: (val) {
             if (val?.isEmpty == true ||
-                !stations.any(
+                !widget.stations.any(
                   (element) => element.name == textEditingController.text,
                 )) {
               return S.of(context).enterValidStation;
             }
-            return validate();
+            return widget.validate();
           },
-          hint: hint,
-          title: title,
+          hint: widget.hint,
+          title: widget.title,
           focusNode: focusNode,
           controller: textEditingController,
         );
       },
       displayStringForOption: (option) => option.name,
-      onSelected: onSelected,
+      onSelected: widget.onSelected,
       optionsViewBuilder: (context, onSelected, options) {
         return Align(
           alignment: AlignmentDirectional.topStart,
@@ -66,6 +70,9 @@ class StationsAutocomplete extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       onSelected(options.elementAt(index));
+                      setState(() {
+
+                      });
                     },
                     child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.dg),
@@ -78,7 +85,7 @@ class StationsAutocomplete extends StatelessWidget {
         );
       },
       optionsBuilder: (textEditingValue) {
-        return stations.where(
+        return widget.stations.where(
           (element) => element.name.toLowerCase().startsWith(
             textEditingValue.text.toLowerCase(),
           ),

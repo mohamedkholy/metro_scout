@@ -5,69 +5,97 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theming/my_colors.dart';
 import '../theming/my_text_styles.dart';
 
-class MyTextForm extends StatelessWidget {
+class MyTextForm extends StatefulWidget {
   final String title;
   final String? validatorMessage;
   final String? Function(String?)? validator;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FocusNode? focusNode;
   final int? maxLines;
   final TextInputType? inputType;
   final List<TextInputFormatter>? inputFormatters;
-  final Function(String)? onChanged;
   final String? hint;
 
   const MyTextForm({
     super.key,
     this.validatorMessage,
-    this.controller,
+    required this.controller,
     this.focusNode,
     required this.title,
     this.validator,
-    this.maxLines, this.inputType, this.inputFormatters, this.onChanged, this.hint,
-
+    this.maxLines,
+    this.inputType,
+    this.inputFormatters,
+    this.hint,
   });
 
+  @override
+  State<MyTextForm> createState() => _MyTextFormState();
+}
+
+class _MyTextFormState extends State<MyTextForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,style: MyTextStyles.font13greyRegular,),
+        Text(widget.title, style: MyTextStyles.font13greyRegular),
         SizedBox(height: 5.h),
-        TextFormField(
-          onChanged: onChanged,
-          inputFormatters: inputFormatters,
-          keyboardType: inputType,
-          maxLines: maxLines,
-          style: Theme
-              .of(context)
-              .textTheme
-              .titleMedium,
-          focusNode: focusNode,
-          controller: controller,
-          validator:
-          validator ??
-                  (value) {
-                if (value?.isEmpty == true) {
-                  return validatorMessage;
-                }
-                return null;
-              },
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: MyTextStyles.font14PrimarySemiBold,
-            contentPadding: EdgeInsetsDirectional.only(start: 16.0, end: 4.0),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: MyColors.primaryColor,
-                style: BorderStyle.solid,
+        IntrinsicHeight(
+          child: Stack(
+            children: [
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+
+                  });
+                },
+                inputFormatters: widget.inputFormatters,
+                keyboardType: widget.inputType,
+                maxLines: widget.maxLines,
+                style: Theme.of(context).textTheme.titleMedium,
+                focusNode: widget.focusNode,
+                controller: widget.controller,
+                validator:
+                    widget.validator ??
+                    (value) {
+                      if (value?.isEmpty == true) {
+                        return widget.validatorMessage;
+                      }
+                      return null;
+                    },
+                decoration: InputDecoration(
+                  hintText: widget.hint,
+                  hintStyle: MyTextStyles.font14PrimarySemiBold,
+                  contentPadding: const EdgeInsetsDirectional.only(
+                    start: 16.0,
+                    end: 4.0,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: MyColors.primaryColor),
+                    borderRadius: BorderRadius.circular(10.h),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.h),
+                  ),
+                ),
               ),
-              borderRadius: BorderRadius.circular(10.h),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.h),
-            ),
+              if(widget.controller.text.isNotEmpty)Padding(
+                padding: EdgeInsets.only(left: 7.w),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      widget.controller.clear();
+                      setState(() {
+
+                      });
+                    },
+                    child: const Icon(Icons.clear),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

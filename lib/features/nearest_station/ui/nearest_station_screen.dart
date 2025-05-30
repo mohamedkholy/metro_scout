@@ -65,7 +65,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: LocationToggleButtons()),
+                const Center(child: LocationToggleButtons()),
                 SizedBox(height: 15.h),
                 BlocBuilder<NearestStationCubit, NearestStationState>(
                   buildWhen:
@@ -79,7 +79,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                         elevation: 2,
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             children: [
                               Icon(
@@ -106,7 +106,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                 ),
                                 color: MyColors.primaryColor,
                                 onPressed: () async {
-                                  LatLng? currentLocation = await cubit
+                                  final LatLng? currentLocation = await cubit
                                       .getCurrentLocation(context);
                                   if (currentLocation != null) {
                                     cubit.getNearestStation(currentLocation);
@@ -138,7 +138,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                         elevation: 2,
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             children: [
                               Icon(
@@ -169,14 +169,13 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                   ),
                                   hintText: S.of(context).enterAddress,
                                   hintStyle: MyTextStyles.font11greyRegular,
-                                  contentPadding: EdgeInsetsDirectional.only(
+                                  contentPadding: const EdgeInsetsDirectional.only(
                                     start: 16.0,
                                     end: 4.0,
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: MyColors.primaryColor,
-                                      style: BorderStyle.solid,
                                     ),
                                     borderRadius: BorderRadius.circular(10.h),
                                   ),
@@ -194,7 +193,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                 color: MyColors.primaryColor,
                                 onPressed: () async {
                                   if (addressController.text.isNotEmpty) {
-                                    var locations = await locationFromAddress(
+                                    final locations = await locationFromAddress(
                                       addressController.text,
                                     );
                                     if (locations.isNotEmpty) {
@@ -289,7 +288,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                     throw 'Could not launch $uri';
                                   }
                                 },
-                                icon: Icon(Icons.directions),
+                                icon: const Icon(Icons.directions),
                                 label: Text(S.of(context).navigate),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.white,
@@ -325,13 +324,13 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                         child: SizedBox(
                           width: 50.dg,
                           height: 50.dg,
-                          child: CircularProgressIndicator(
+                          child: const CircularProgressIndicator(
                             color: MyColors.primaryColor,
                           ),
                         ),
                       );
                     } else if (state is NearMetroState) {
-                      LatLng southwest = LatLng(
+                      final LatLng southwest = LatLng(
                         min(
                           state.nearestStation.lat,
                           state.currentLocation.latitude,
@@ -341,7 +340,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                           state.currentLocation.longitude,
                         ),
                       );
-                      LatLng northeast = LatLng(
+                      final LatLng northeast = LatLng(
                         max(
                           state.nearestStation.lat,
                           state.currentLocation.latitude,
@@ -351,7 +350,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                           state.currentLocation.longitude,
                         ),
                       );
-                      var bounds = LatLngBounds(
+                      final bounds = LatLngBounds(
                         southwest: southwest,
                         northeast: northeast,
                       );
@@ -380,13 +379,13 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                             onTap: (latLng) {
                               cubit.getNearestStation(latLng);
                             },
-                            initialCameraPosition: CameraPosition(
+                            initialCameraPosition: const CameraPosition(
                               target: LatLng(30.0444, 31.2357), //cairo center
                               zoom: 10,
                             ),
                             markers: {
                               Marker(
-                                markerId: MarkerId("nearestMetro"),
+                                markerId: const MarkerId("nearestMetro"),
                                 icon: metroIcon,
                                 position: LatLng(
                                   state.nearestStation.lat,
@@ -397,7 +396,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                                 ),
                               ),
                               Marker(
-                                markerId: MarkerId("currentLocation"),
+                                markerId: const MarkerId("currentLocation"),
                                 position: state.currentLocation,
                               ),
                             },
@@ -405,7 +404,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                         ),
                       );
                     } else if (state is SearchByLocationState) {
-                      final LatLng cairoCenter = LatLng(30.0444, 31.2357);
+                      const LatLng cairoCenter = LatLng(30.0444, 31.2357);
                       return Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -425,7 +424,7 @@ class _NearestStationScreenState extends State<NearestStationScreen> {
                             onMapCreated: (controller) {
                               mapController = controller;
                             },
-                            initialCameraPosition: CameraPosition(
+                            initialCameraPosition: const CameraPosition(
                               target: cairoCenter,
                               zoom: 10,
                             ),

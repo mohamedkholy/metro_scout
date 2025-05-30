@@ -55,7 +55,7 @@ class _MetroMapScreenState extends State<MetroMapScreen> {
               onDotClicked: (index) {
                 _controller.animateToPage(
                   index,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOutQuint,
                 );
               },
@@ -84,14 +84,13 @@ class _MetroMapScreenState extends State<MetroMapScreen> {
     final double top = active ? 10.h : 50.h;
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutQuint,
       margin: EdgeInsets.only(top: top, bottom: 30.h, right: 10.w, left: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
             blurRadius: blur,
             offset: Offset(offset, offset),
           ),

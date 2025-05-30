@@ -132,7 +132,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                       Container(
                                                         width: 8.dg,
                                                         height: 8.dg,
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                           color:
@@ -153,7 +153,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                       Container(
                                                         width: 8.dg,
                                                         height: 8.dg,
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                           color:
@@ -249,7 +249,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                       Container(
                                                         width: 8.dg,
                                                         height: 8.dg,
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                           color:
@@ -270,7 +270,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                       Container(
                                                         width: 8.dg,
                                                         height: 8.dg,
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                           color:
@@ -283,7 +283,7 @@ class CalculateFareScreen extends StatelessWidget {
                                                   SizedBox(height: 12.h),
                                                   ListView.builder(
                                                     physics:
-                                                        NeverScrollableScrollPhysics(),
+                                                        const NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     itemCount:
                                                         state.stations.length,
