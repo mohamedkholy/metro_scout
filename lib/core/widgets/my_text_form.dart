@@ -81,9 +81,9 @@ class _MyTextFormState extends State<MyTextForm> {
                 ),
               ),
               if(widget.controller.text.isNotEmpty)Padding(
-                padding: EdgeInsets.only(left: 7.w),
+                padding: EdgeInsetsDirectional.only(end: 7.w),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: GestureDetector(
                     onTap: () {
                       widget.controller.clear();
